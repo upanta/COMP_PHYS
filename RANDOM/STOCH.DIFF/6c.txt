@@ -1,0 +1,32 @@
+##Uday Panta 		9th October 2019
+
+
+from numpy import arange 
+import random
+import matplotlib.pyplot as plt
+mu = 0.1
+sigma = 0.5
+
+dt = 0.001
+
+x0 = 0
+tmax = 1
+timesteps = arange(1000, 10000, 1000)
+
+def generateFINALPOS(t):
+	x = 0
+	for i in t:
+		x = x + mu * dt + sigma * random.gauss(0,1) * dt**0.5
+	return x	
+
+finallist = []
+for j in [timesteps[int(len(timesteps)//2)]]:
+	numofTrials = 2000
+	for i in range(numofTrials):
+		t_list = arange(0,j*dt, dt)
+		end = generateFINALPOS(t_list)
+		finallist.append(end)
+	
+n, bins, patches = plt.hist(finallist, bins = arange(min(finallist), max(finallist),0.05))
+
+plt.show()
